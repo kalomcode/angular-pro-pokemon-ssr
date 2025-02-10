@@ -3,14 +3,22 @@
 
 <hr class="my-2" />
 
-@if (pokemons()) {
+@if (pokemons() && pokemons()!.length > 0) {
 <pokemon-list [pokemons]="pokemons()" />
 }@else {
 <pokemon-list-skeleton />
 }
 
 <div class="flex justify-between">
-  <button (click)="loadPokemons(-1)" class="mt-2">Anteriores</button>
+  <button
+    [disabled]="currentPage() === 1"
+    [routerLink]="['/pokemons/page', currentPage()! - 1]"
+    class="mt-2"
+  >
+    Anteriores
+  </button>
 
-  <button (click)="loadPokemons(+1)" class="mt-2">Siguientes</button>
+  <button [routerLink]="['/pokemons/page', currentPage()! + 1]" class="mt-2">
+    Siguientes
+  </button>
 </div>
